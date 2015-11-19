@@ -1,0 +1,35 @@
+<html>
+
+  <head>
+    <title>wargame</title>
+
+    <link rel="stylesheet" href="css/main.css">
+
+    <script> 
+      var require = {
+        shim: {
+          backbone: {
+            deps: ['jquery', 'underscore']
+          }
+        },
+        paths: {
+          "backbone": "vendor/backbone",
+          "jquery": "vendor/jquery.min",
+          "socketio": "vendor/socket.io",
+          "underscore": "vendor/underscore.min"
+        }
+      };
+    </script>
+    <script data-main="js/main.js" src="js/vendor/require.js"></script>
+    <script type="text/javascript">
+      require(['src/views/app'], function(AppView) {
+        new AppView();
+      });
+    </script>
+  </head>
+
+  <body>
+    <canvas id="c"></canvas>
+  </body>
+
+</html>
