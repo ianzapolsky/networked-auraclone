@@ -8,9 +8,9 @@ var Game = require('./tgame.js').Game;
 
 app.use(express.static('public'));
 
-var appRoot = 'wargame';
+var appRoot = 'auraclone';
 
-var runGame = function(nsp) {
+var runGame = function(nsp, res) {
 
   var players = 0;
   var game = new Game();
@@ -37,9 +37,8 @@ var runGame = function(nsp) {
         nsp.emit('new units', newUnits);
       }, 1000);
     }
-    // for debug purposes only
     if (players > 2) {
-      process.exit();
+      res.redirect('/overload');
     }
 
     socket.on('p1 unit data', function(data) {
@@ -57,10 +56,14 @@ var runGame = function(nsp) {
   });
 };
 
+app.get('/overload', function(req, res) {
+
+});
+
 app.get('/create', function(req, res) {
   var roomName = unique.random(10);
   var nsp = io.of('/'+roomName);
-  runGame(nsp);
+  runGame(nsp, res);
   res.redirect('/'+appRoot+'/#'+roomName);
 });
 
