@@ -3,7 +3,7 @@
   <head>
     <title>wargame</title>
 
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="/auraclone/css/main.css">
 
     <script> 
       var require = {
@@ -20,16 +20,37 @@
         }
       };
     </script>
-    <script data-main="js/main.js" src="js/vendor/require.js"></script>
+    <script data-main="/auraclone/js/main.js" src="/auraclone/js/vendor/require.js"></script>
     <script type="text/javascript">
-      require(['src/views/app'], function(AppView) {
+      require(['src/views/lobby'], function(AppView) {
         new AppView();
       });
     </script>
   </head>
 
   <body>
-    <canvas id="c"></canvas>
+
+    <h1>Auraclone</h1>
+  
+    <h4>Click one of the games below to join a game, or <a href="/auraclone/create/">click here</a> to create a new game.</h4>
+
+    <h2>games</h2>
+    <div class="game-list">
+    </div>
+    <script type="text/template" id="game-list-template">
+      <div class="container game-list">
+        <ul>
+          <% data.forEach(function(game) { %>
+            <li>
+              <div class="container game-list-item">
+                <p><a href="/auraclone/play/#<%= game.name %>"><%= game.name %></a></p>
+              </div>
+            </li>
+          <% }); %>
+        </ul>
+      </div>
+    </script>
+
   </body>
 
 </html>

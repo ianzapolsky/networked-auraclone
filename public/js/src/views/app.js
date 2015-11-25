@@ -26,7 +26,7 @@ define([
     curr_x: null,
     curr_y: null,
 
-    appRoot: 'wargame',
+    appRoot: 'auraclone',
 
     initialize: function() {
       var _this          = this;
@@ -79,7 +79,7 @@ define([
           _this.game.units[u.id] = new Unit(_this.game, u); 
         });
       });
-           
+
       this.socket.on('unit data', function(data) {
         //console.log('receiving data');
         //console.log(data);

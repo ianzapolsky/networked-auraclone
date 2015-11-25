@@ -20,16 +20,16 @@
         }
       };
     </script>
+    <script data-main="/auraclone/js/main.js" src="/auraclone/js/vendor/require.js"></script>
+    <script type="text/javascript">
+      require(['src/views/app'], function(AppView) {
+        new AppView();
+      });
+    </script>
   </head>
 
   <body>
-
-    <h1>Auraclone</h1>
-
-    <h2>Sorry, that game is full.</h2>
-  
-    <h4><a href="/auraclone/">Click here</a> to return to the game list</h4>
-
+    <canvas id="c"></canvas>
   </body>
 
 </html>

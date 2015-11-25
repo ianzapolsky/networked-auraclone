@@ -10,7 +10,18 @@ app.use(express.static('public'));
 
 var appRoot = 'auraclone';
 
-var runGame = function(nsp, res) {
+var games = [];
+
+var lobby = io.of('/lobby');
+
+lobby.on('connection', function(socket) {
+  var _this = this;
+  console.log(games);
+  socket.emit('games', games);
+});
+
+
+var runGame = function(roomName, nsp, res) {
 
   var players = 0;
   var game = new Game();
@@ -36,9 +47,12 @@ var runGame = function(nsp, res) {
         var newUnits = game.doTick();
         nsp.emit('new units', newUnits);
       }, 1000);
+
+      games.splice(games.indexOf(roomName), 1);
+      lobby.emit('games', games);
     }
     if (players > 2) {
-      res.redirect('/overload');
+      res.redirect('/'+appRoot+'/overload');
     }
 
     socket.on('p1 unit data', function(data) {
@@ -56,15 +70,13 @@ var runGame = function(nsp, res) {
   });
 };
 
-app.get('/overload', function(req, res) {
-
-});
-
 app.get('/create', function(req, res) {
   var roomName = unique.random(10);
   var nsp = io.of('/'+roomName);
-  runGame(nsp, res);
-  res.redirect('/'+appRoot+'/#'+roomName);
+  runGame(roomName, nsp, res);
+  games.push({name:roomName});
+  lobby.emit('games', games);
+  res.redirect('/'+appRoot+'/play/#'+roomName);
 });
 
 http.listen(8000, function() {
