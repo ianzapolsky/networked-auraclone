@@ -13,7 +13,8 @@ Game.prototype.init = function() {
   this.planets = [
     new Planet(0, 1, 3, 100, 300),
     new Planet(1, 2, 3, 300, 300),
-    new Planet(2, 1, 3, 300, 100)
+    new Planet(2, 1, 3, 300, 100),
+    new Planet(3, 2, 3, 100, 100)
   ];
 };
 
